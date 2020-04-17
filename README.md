@@ -82,3 +82,7 @@ Very much WIP
 | declarationsGLSL | `string` (GLSL) | identity | GLSL declarations code. At least `vec4 cameraTransform(vec4 pos);`. Useful for custom attributes. |
 | defineVerticesGLSL | `string` (GLSL) | `undefined` | Non-optional when using just the base. Must define at least `vec3 p0, p1, p2, p3; float r0, r1, r2, r3;` |
 | postprocessVerticesGLSL | `string` (GLSL) | `undefined` | Optional GLSL code that modifies clip or screen-space coordinates. |
+
+## Future Improvements
+- Fix a bug when using round joins + variable width
+- Correctly tesselate joins when possible (right now segments just overlap always)
