@@ -5,7 +5,7 @@ Based on [Regl](https://github.com/regl-project/regl).
 
 Features:
 - batch rendering of lines
-- vertex shader expanded using instancing
+- vertex shader expanded
 - variable width (in each point)
 - separate caps (`butt`, `square`, `round`) and
 - joins (`bevel`, `miter(limit)`, `miterSquare`, `round`)
