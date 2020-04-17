@@ -86,3 +86,4 @@ Very much WIP
 ## Future Improvements
 - Fix a bug when using round joins + variable width
 - Correctly tesselate joins when possible (right now segments just overlap always)
+- provide a few default fragment shaders (e.g. dashes)
