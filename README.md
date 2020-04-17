@@ -14,6 +14,8 @@ There are two ways to use this library:
 - use the high level wrapper
 - extend the lower level base
 
+![Example](static/example.png)
+
 ## High level API
 
 Example usage:
