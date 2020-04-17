@@ -2,7 +2,8 @@
 
 ## Highly extendable instanced line rendering in one draw call.
 Based on [Regl](https://github.com/regl-project/regl).
-Very loosely based on Rye Terrell's [Instanced Line Rendering](https://wwwtyro.net/2019/11/18/instanced-lines.html), but it is a very good introduction.
+
+Loosely based on Rye Terrell's [Instanced Line Rendering](https://wwwtyro.net/2019/11/18/instanced-lines.html), but it is a very good introduction.
 
 Features:
 - batch rendering of lines
