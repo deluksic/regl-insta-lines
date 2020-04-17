@@ -1,20 +1,21 @@
 # (WIP) Instanced Lines for REGL
 
 ## Highly extendable instanced line rendering in one draw call.
-## Based on [Regl](https://github.com/regl-project/regl).
+Based on [Regl](https://github.com/regl-project/regl).
 
 Features:
 - batch rendering of lines
-- vertex shader expanded variable-width using instancing
+- vertex shader expanded using instancing
+- variable width (in each point)
 - separate caps (`butt`, `square`, `round`) and
 - joins (`bevel`, `miter(limit)`, `miterSquare`, `round`)
 - GLSL injectable to tailor to your needs (e.g. do you have a non-linear camera?)
 
+![Example](static/example.png)
+
 There are two ways to use this library:
 - use the high level wrapper
 - extend the lower level base
-
-![Example](static/example.png)
 
 ## High level API
 
