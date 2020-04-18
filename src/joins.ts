@@ -13,41 +13,27 @@ export const JoinType = {
   `,
   miter: (limit = 3) => glsl`
     vec2 join(vec2 a, vec2 b, float percent) {
-      vec2 mid = 0.5 * (a + b);
-      float midlen2 = dot(mid, mid);
-      float miterLen2 = 1.0 / midlen2;
+      if (percent == 0.0) return a;
+      if (percent == 1.0) return b;
       float limit = ${limit.toFixed(4)};
-      if (midlen2 < 0.0001 || miterLen2 > limit*limit) {
+      vec2 mp = miterPoint(a, b);
+      float mplen2 = dot(mp, mp);
+      if (mplen2 < 0.0001 || mplen2 > limit*limit) {
         return mix(a, b, percent);
       } else {
-        vec2 i = mid * miterLen2;
-        return percent == 0. ? a : percent == 1. ? b : i;
+        return mp;
       }
     }
   `,
   miterSquare: glsl`
-    float winding(vec2 v0, vec2 v1) {
-      return sign(cross(vec3(v1, 0.0), vec3(v0, 0.0)).z);
-    }
-
     vec2 join(vec2 a, vec2 b, float percent) {
-      float sgn = winding(a, b);
-      float alpha = acos(dot(a, b)) * 0.5;
-      float beta = tan(alpha);
-      float det = beta*beta - 2.0*beta;
-      float x = sgn * (det < 0.0 ? beta : beta - sqrt(det));
-      if (a == -b) {
-        x = -1.0;
-      }
-      vec2 norma = x * vec2(a.y, -a.x);
-      vec2 normb = x * vec2(-b.y, b.x);
-      if (percent == 0.0) {
-        return a;
-      }
-      if (percent == 1.0) {
-        return b;
-      }
-      return percent < 0.5 ? a + norma : b + normb;
+      if (percent == 0.0) return a;
+      if (percent == 1.0) return b;
+      vec2 anorm = vec2(-a.y, a.x);
+      vec2 bnorm = vec2(b.y, -b.x);
+      if (dot(anorm, b) <= 0.0) return vec2(0.0);
+      vec2 mid = normalize(anorm + bnorm);
+      return miterPoint(percent < 0.5 ? a : b, mid);
     }
   `
 };

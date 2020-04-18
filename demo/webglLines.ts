@@ -1,6 +1,6 @@
 import REGL, { Regl } from 'regl';
 import { glsl, GLSL } from '../src/glsl';
-import { Line3DDescriptor } from 'regl-lines/src';
+import { Line3DDescriptor } from '../src';
 
 const defaultCameraTransform = glsl`
   vec4 cameraTransform(vec4 pos) {

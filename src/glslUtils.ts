@@ -15,7 +15,7 @@ export const slerp = glsl`
 
   float signedAngle(vec2 a, vec2 b, float preferSign) {
     vec2 diff = b + a;
-    if(dot(diff, diff) < 0.0001) return preferSign*PI;
+    if(dot(diff, diff) < 1e-5) return preferSign*PI;
     return atan(a.x*b.y - a.y*b.x, a.x*b.x + a.y*b.y);
   }
 
