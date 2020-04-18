@@ -1,11 +1,13 @@
 # (WIP) Instanced Lines for REGL
 
-## Highly extendable instanced line rendering in one draw call.
+## Highly extendable instanced line rendering in a single draw call.
 Based on [Regl](https://github.com/regl-project/regl).
+
+Loosely based on Rye Terrell's [Instanced Line Rendering](https://wwwtyro.net/2019/11/18/instanced-lines.html), but it is a very good introduction.
 
 Features:
 - batch rendering of lines
-- vertex shader expanded using instancing
+- vertex shader expanded
 - separate caps (`butt`, `square`, `round`) and
 - joins (`bevel`, `miter(limit)`, `miterSquare`, `round`)
 - GLSL injectable to tailor to your needs (e.g. do you have a non-linear camera?)
@@ -82,8 +84,9 @@ Very much WIP
 | postprocessVerticesGLSL | `string` (GLSL) | `undefined` | Optional GLSL code that modifies clip or screen-space coordinates. |
 
 ## Future Improvements
-- Correctly tesselate joins when possible (right now segments just overlap always)
+- correctly tesselate joins when possible (right now segments just overlap always)
 - provide a few default fragment shaders (e.g. dashes)
+- separate `lcap` and `rcap` with `arrow` cap type
 
 
 ## Combination Test
