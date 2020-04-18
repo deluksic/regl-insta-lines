@@ -1,6 +1,6 @@
 # (WIP) Instanced Lines for REGL
 
-## Highly extendable instanced line rendering in one draw call.
+## Highly extendable instanced line rendering in a single draw call.
 Based on [Regl](https://github.com/regl-project/regl).
 
 Loosely based on Rye Terrell's [Instanced Line Rendering](https://wwwtyro.net/2019/11/18/instanced-lines.html), but it is a very good introduction.
