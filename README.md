@@ -84,3 +84,15 @@ Very much WIP
 ## Future Improvements
 - Correctly tesselate joins when possible (right now segments just overlap always)
 - provide a few default fragment shaders (e.g. dashes)
+
+
+## Combination Test
+![Combination Test](static/combination_test.png)
+
+NOTE: "extra" lines are simply an artifact of rendering with `'line strip'`. In reality each segment is represented as 4 triangles + 1 join accordion (the other is always back-face culled).
+
+## Anatomy of a single segment
+
+You can view this at [Geogebra](https://www.geogebra.org/geometry/uw5kurzg)
+
+![Segment](static/segment.png)

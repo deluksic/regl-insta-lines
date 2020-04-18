@@ -25,7 +25,7 @@ const testLine = (angle: number, scale: number, shift: [number, number]) => [
 
 const testLines = (count: number, shifty: number) => [...new Array(count).keys()]
   .map(i => ({
-    points: testLine(i / (count - 1) * 2 * Math.PI, 0.05, [(i + .5) / count * 2 - 1, shifty])
+    points: testLine(i / (count - 1) * 2 * Math.PI, 0.08, [(i + .5) / count * 2 - 1, shifty])
   }));
 
 export function main(regl: Regl) {
@@ -37,8 +37,8 @@ export function main(regl: Regl) {
   const linecmds = capjoin.map(({ cap, join }) => createLines3D(regl, {
     cap,
     join,
-    primitive: 'triangles',
-    joinCount: 4,
+    primitive: 'line strip',
+    joinCount: 8,
     frag: glsl`
       precision highp float;
       varying vec2 distanceAlongPath;
@@ -58,7 +58,7 @@ export function main(regl: Regl) {
   }));
   linecmds.forEach((cmd, i) => {
     cmd.setWidth(opts.width);
-    cmd.setLines(testLines(13, -(i + 1.5) / (linecmds.length + 1) * 2 + 1))
+    cmd.setLines(testLines(9, -(i + .5) / linecmds.length * 2 + 1))
   });
   regl.frame(() => {
     linecmds.forEach(cmd => {
