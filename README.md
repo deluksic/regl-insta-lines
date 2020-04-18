@@ -92,7 +92,7 @@ Very much WIP
 ## Combination Test
 ![Combination Test](static/combination_test.png)
 
-NOTE: "extra" lines are simply an artifact of rendering with `'line strip'`. In reality each segment is represented as 4 triangles + 1 join accordion (the other is always back-face culled).
+NOTE: "extra" lines are simply an artifact of rendering with `'line strip'`. In reality each segment is represented as 4 triangles + 2 join accordion, one on each side. Even though each segment renders an accordion on both sides, only one is visible per join because the other one gets back-face culled.
 
 ## Anatomy of a single segment
 
