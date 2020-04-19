@@ -13,8 +13,12 @@ Features:
 - GLSL injectable to tailor to your needs (e.g. do you have a non-linear camera?)
 - full type support
 
+| filled | wireframe |
+|-|-|
 | ![](static/example_fill.png) | ![](static/example_wire.png) |
-|------------------------------|--------------------------|
+
+| UVs | Decoration using UV.y |
+|-|-|
 | ![](static/example_uv.png) | ![](static/example_decoration.png) |
 
 There are two ways to use this library:
