@@ -5,7 +5,10 @@ import { glsl } from '../../src/glsl';
 export function main(regl: Regl) {
   const lines3dcmd = createLines3D(regl, {
     join: JoinType.miterSquare,
-    cap: CapType.square,
+    cap: {
+      start: CapType.arrow(),
+      end: CapType.butt
+    },
     primitive: 'line strip',
     joinCount: 8,
     frag: glsl`

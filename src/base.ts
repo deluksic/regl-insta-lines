@@ -23,12 +23,11 @@ export type CreateLineOptions = {
    */
   width?: number;
   /**
-   * GLSL code for calculating the cap.
+   * GLSL code for calculating the caps.
    * ```glsl
    * vec2 cap(vec2 a, vec2 b, float percent);
-   * ```
    */
-  cap?: GLSL;
+  cap?: GLSL | { start: GLSL; end: GLSL };
   /**
    * GLSL code of declarations, at least:
    * ```glsl
@@ -101,6 +100,13 @@ export function lineBase(
 ) {
   const mesh = lineSegmentMesh(joinCount);
   const vertices = regl.buffer(mesh.vertices);
+  let startCap, endCap;
+  if (typeof cap === 'string') {
+    startCap = endCap = cap;
+  } else {
+    startCap = cap.start;
+    endCap = cap.end;
+  }
   return {
     setWidth: (newWidth: number) => width = newWidth,
     render: regl({
@@ -133,8 +139,15 @@ export function lineBase(
 
         ${slerp}
         ${declarationsGLSL}
-        ${cap}
         ${join}
+        
+        vec2 startCap(vec2 dir, vec2 norm, float percent) {
+          ${startCap}
+        }
+
+        vec2 endCap(vec2 dir, vec2 norm, float percent) {
+          ${endCap}
+        }
 
         void main() {
           vec2 halfRes = vec2(0.5 * resolution);
@@ -195,7 +208,11 @@ export function lineBase(
           } else if (vertex.y == 1.0) {
             // interpolate a to b (cap or join)
             if(b == vec2(0.0)){
-              final = cap(dir, a, vertex.z);
+              if (vertex.x < 0.5) {
+                final = startCap(dir, a, vertex.z);
+              } else {
+                final = endCap(dir, a, vertex.z);
+              }
             } else {
               final = join(a, b, vertex.z);
             }

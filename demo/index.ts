@@ -11,5 +11,5 @@ const regl = createRegl({
 });
 // main(regl, createLines);
 // main(regl, createLines3D);
-// inter(regl);
-comb(regl);
+inter(regl);
+// comb(regl);

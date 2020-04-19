@@ -8,7 +8,7 @@ Loosely based on Rye Terrell's [Instanced Line Rendering](https://wwwtyro.net/20
 Features:
 - batch rendering of lines
 - vertex shader expanded
-- separate caps (`butt`, `square`, `round`, `arrow(size, angle)`) and
+- start / end caps (`butt`, `square`, `round`, `arrow(size, angle)`)
 - joins (`bevel`, `miter(limit)`, `miterSquare`, `round`)
 - GLSL injectable to tailor to your needs (e.g. do you have a non-linear camera?)
 
@@ -74,7 +74,7 @@ Very much WIP
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | width | `number` | `1.0` | Width of lines in pixels |
-| cap | `string` (GLSL) | `CapType.butt` | Any of `CapType`s or your own custom GLSL function. Supported: `butt`, `square`, `round` |
+| cap | `string` (GLSL) or `{ start: GLSL; end: GLSL; }` | `CapType.butt` | Any of `CapType`s or your own custom GLSL function. Supported: `butt`, `square`, `round` |
 | join | `string` (GLSL) | `JoinType.bevel` | Any of `JoinType`s or your own custom GLSL function. Supported: `bevel`, `miter`, `round`, `miterSquare` |
 | joinCount | `int` | `3` | Number of triangles approximating the joins. NOTE: joins (like miter or round) effectively become bevel joins when set to 1. |
 | frag | `string` (GLSL) | fill white | Fragment shader, gets the following varying: `vec2 vUv;` uv coordinate of the segment. |

@@ -3,26 +3,24 @@ import { PI } from './glslUtils';
 
 export const CapType = {
   butt: glsl`
-    vec2 cap(vec2 dir, vec2 norm, float percent) {
+    // vec2 cap(vec2 dir, vec2 norm, float percent) {
       return percent < 0.5 ? norm : -norm;
-    }
+    // }
   `,
   square: glsl`
-    vec2 cap(vec2 dir, vec2 norm, float percent) {
+    // vec2 cap(vec2 dir, vec2 norm, float percent) {
       if (percent == 0.0) return norm;
       if (percent == 1.0) return -norm;
       return percent < 0.5 ? dir + norm : dir - norm;
-    }
+    //}
   `,
   round: glsl`
-    ${PI}
-    vec2 cap(vec2 dir, vec2 norm, float percent) {
+    // vec2 cap(vec2 dir, vec2 norm, float percent) {
       return slerp(norm, dir, percent * 2.0, -1.0);
-    }
+    // }
   `,
   arrow: (size = 2.5, angle = 60) => glsl`
-    ${PI}
-    vec2 cap(vec2 dir, vec2 norm, float percent) {
+    // vec2 cap(vec2 dir, vec2 norm, float percent) {
       float size = ${size.toFixed(4)};
       float angle = radians(${angle.toFixed(4)});
       mat2 prot = rotMat(angle, 1.0);
@@ -35,6 +33,6 @@ export const CapType = {
       if (percent == 0.5) return mid;
       if (percent < 0.5) return shoulder1;
       if (percent > 0.5) return shoulder2;
-    }
+    // }
   `
 };
