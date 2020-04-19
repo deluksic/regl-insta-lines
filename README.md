@@ -86,8 +86,6 @@ Very much WIP
 ## Future Improvements
 - correctly tesselate joins when possible (right now segments just overlap always)
 - provide a few default fragment shaders (e.g. dashes)
-- separate `lcap` and `rcap` with `arrow` cap type
-
 
 ## Combination Test
 ![Combination Test Filled](static/combination_test_fill.png)
