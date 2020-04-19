@@ -11,6 +11,7 @@ Features:
 - start / end caps (`butt`, `square`, `round`, `arrow(size, angle)`)
 - joins (`bevel`, `miter(limit)`, `miterSquare`, `round`)
 - GLSL injectable to tailor to your needs (e.g. do you have a non-linear camera?)
+- full type support
 
 ![Example](static/example.png)
 

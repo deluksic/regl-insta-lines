@@ -1,7 +1,7 @@
 import { Regl } from 'regl';
 import { glsl, GLSL } from './glsl';
 import {
-  lineBase,
+  createLineBase,
   defaultCameraTransform,
   CreateLineOptions
 } from './base';
@@ -68,7 +68,7 @@ export function createLines3D(
     offset: Float32Array.BYTES_PER_ELEMENT * 2 * x,
     stride: Float32Array.BYTES_PER_ELEMENT * 2
   });
-  const { setWidth, render } = lineBase(regl, {
+  const { setWidth, render } = createLineBase(regl, {
     ...linesBaseOptions,
     declarationsGLSL: glsl`
       ${cameraTransform}

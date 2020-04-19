@@ -84,7 +84,7 @@ export type CreateLineOptions = {
 /**
  * Creates a regl lines drawing command.
  */
-export function lineBase(
+export function createLineBase(
   regl: Regl,
   {
     width = 1,
