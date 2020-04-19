@@ -13,7 +13,7 @@ function maybeString(s: string | (() => string)): string {
 
 const capjoin = Object.keys(CapType).flatMap(
   ct => Object.keys(JoinType).map(jt => ({
-    cap: CapType[ct as keyof typeof CapType],
+    cap: maybeString(CapType[ct as keyof typeof CapType]),
     join: maybeString(JoinType[jt as keyof typeof JoinType])
   })));
 

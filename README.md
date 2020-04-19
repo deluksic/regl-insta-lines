@@ -8,7 +8,7 @@ Loosely based on Rye Terrell's [Instanced Line Rendering](https://wwwtyro.net/20
 Features:
 - batch rendering of lines
 - vertex shader expanded
-- separate caps (`butt`, `square`, `round`) and
+- separate caps (`butt`, `square`, `round`, `arrow(size, angle)`) and
 - joins (`bevel`, `miter(limit)`, `miterSquare`, `round`)
 - GLSL injectable to tailor to your needs (e.g. do you have a non-linear camera?)
 
@@ -90,6 +90,8 @@ Very much WIP
 
 
 ## Combination Test
+![Combination Test Filled](static/combination_test_fill.png)
+
 ![Combination Test](static/combination_test.png)
 
 NOTE: "extra" lines are simply an artifact of rendering with `'line strip'`. In reality each segment is represented as 4 triangles + 2 join accordions, one on each side. Even though each segment renders an accordion on both sides, only one is visible per join because the other one gets back-face culled.

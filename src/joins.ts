@@ -18,7 +18,7 @@ export const JoinType = {
       float limit = ${limit.toFixed(4)};
       vec2 mp = miterPoint(a, b);
       float mplen2 = dot(mp, mp);
-      if (mplen2 < 0.0001 || mplen2 > limit*limit) {
+      if (mplen2 < 1e-5 || mplen2 > limit*limit) {
         return mix(a, b, percent);
       } else {
         return mp;
