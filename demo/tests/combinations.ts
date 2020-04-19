@@ -37,7 +37,7 @@ export function main(regl: Regl) {
   const linecmds = capjoin.map(({ cap, join }) => createLines3D(regl, {
     cap,
     join,
-    primitive: 'line strip',
+    // primitive: 'line strip',
     joinCount: 8,
     frag: glsl`
       precision highp float;

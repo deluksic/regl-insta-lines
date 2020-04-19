@@ -32,6 +32,7 @@ export function createLines3D(
     declarationsGLSL,
     defineVerticesGLSL,
     postprocessVerticesGLSL,
+    mainEndGLSL,
     cameraTransform = defaultCameraTransform,
     distanceFn = vec3.distance,
     ...linesBaseOptions
@@ -80,9 +81,12 @@ export function createLines3D(
     `,
     defineVerticesGLSL: glsl`
       p0 = ap0, p1 = ap1, p2 = ap2, p3 = ap3;
-      distanceAlongPath = vertex.x < 0.5 ? ad1 : ad2;
       skip = askip;
       ${defineVerticesGLSL}
+    `,
+    mainEndGLSL: glsl`
+      distanceAlongPath = mix(ad1, ad2, vUv.x);
+      ${mainEndGLSL}
     `
   });
   const cmd = regl({

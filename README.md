@@ -13,7 +13,9 @@ Features:
 - GLSL injectable to tailor to your needs (e.g. do you have a non-linear camera?)
 - full type support
 
-![Example](static/example.png)
+| ![](static/example_fill.png) | ![](static/example_wire.png) |
+|------------------------------|--------------------------|
+| ![](static/example_uv.png) | ![](static/example_decoration.png) |
 
 There are two ways to use this library:
 - extend the lower level base
@@ -78,14 +80,15 @@ Very much WIP
 | cap | `string` (GLSL) or `{ start: GLSL; end: GLSL; }` | `CapType.butt` | Any of `CapType`s or your own custom GLSL function. Supported: `butt`, `square`, `round` |
 | join | `string` (GLSL) | `JoinType.bevel` | Any of `JoinType`s or your own custom GLSL function. Supported: `bevel`, `miter`, `round`, `miterSquare` |
 | joinCount | `int` | `3` | Number of triangles approximating the joins. NOTE: joins (like miter or round) effectively become bevel joins when set to 1. |
+| reverseMiterLimit | `number` | `0.5` | How far up the segment can a reverse miter go. Anything more than `0.5` runs a risk of failure, but allows sharper angles to still be reverse mitered. |
 | frag | `string` (GLSL) | fill white | Fragment shader, gets the following varying: `vec2 vUv;` uv coordinate of the segment. |
 | primitive | regl's primitive type | `triangles` | Used for debug when rendering with `lines` for example |
 | declarationsGLSL | `string` (GLSL) | identity | GLSL declarations code. At least `vec4 cameraTransform(vec4 pos);`. Useful for custom attributes. |
 | defineVerticesGLSL | `string` (GLSL) | `undefined` | Non-optional when using just the base. Must define at least `vec3 p0, p1, p2, p3;` |
 | postprocessVerticesGLSL | `string` (GLSL) | `undefined` | Optional GLSL code that modifies clip or screen-space coordinates. |
+| mainEndGLSL | `string` (GLSL) | `undefined` | Optional GLSL code that runs at the end of main body. |
 
 ## Future Improvements
-- correctly tesselate joins when possible (right now segments just overlap always)
 - provide a few default fragment shaders (e.g. dashes)
 
 ## Combination Test

@@ -76,6 +76,18 @@ export type CreateLineOptions = {
    */
   postprocessVerticesGLSL?: GLSL;
   /**
+   * Optional GLSL code that runs at the end of main() function body.
+   * Useful to compute aditional varyings based on some values
+   * computed previously.
+   */
+  mainEndGLSL?: GLSL;
+  /**
+   * How far up the segment can a reverse miter go. Default is .5.
+   * Anything larger than .5 has a probability of failure, but allows
+   * sharper angles to still be reverse-mitered.
+   */
+  reverseMiterLimit?: number;
+  /**
    * For setting to lines for debugging
    */
   primitive?: REGL.DrawConfig['primitive'];
@@ -95,6 +107,8 @@ export function createLineBase(
     joinCount = 4,
     defineVerticesGLSL,
     postprocessVerticesGLSL,
+    mainEndGLSL,
+    reverseMiterLimit = 0.5,
     primitive = 'triangles'
   }: CreateLineOptions
 ) {
@@ -191,35 +205,69 @@ export function createLineBase(
           vec2 p1a = t12.xy, p1b = t01.xy, p1c = t12.zw, p1d = t01.zw;
           vec2 p2a = t12.zw, p2b = t23.zw, p2c = t12.xy, p2d = t23.xy;
 
-          // choose p,a,b,c,d
+          // choose
           vec4 p;
-          vec2 a, b, c, d;
+          vec2 a, b, c, d, sab, scd;
           if(vertex.x < 0.0) {
-            p = clip1; a = p1a; b = p1b; c = p1c; d = p1d;
+            p = clip1;
+            a = p1a; b = p1b;
+            c = p1c; d = p1d;
+            sab = -p0p1; scd = p1p2;
           } else {
-            p = clip2; a = p2a; b = p2b; c = p2c; d = p2d;
+            p = clip2;
+            a = p2a; b = p2b;
+            c = p2c; d = p2d;
+            sab = p2p3; scd = -p1p2;
           }
+
+          bool isCap = b == vec2(0.0);
+
+          // values required to potentially account for reverse miter
+          float reverseMiterLimit = ${reverseMiterLimit.toFixed(4)};
+          vec2 abrevmiter = miterPoint(a, b);
+          vec2 cdrevmiter = miterPoint(c, d);
+          float sablen2 = dot(sab, sab);
+          float scdlen2 = dot(scd, scd);
+          float ababmitlen = dot(sab, abrevmiter) * width / sablen2;
+          float abcdmitlen = dot(sab, cdrevmiter) * width / sablen2;
+          float cdabmitlen = dot(scd, abrevmiter) * width / scdlen2;
+          float cdcdmitlen = dot(scd, cdrevmiter) * width / scdlen2;
 
           vec2 final = vec2(0.0);
           vec2 dir = vertex.x * normalize(p1p2);
           if (vertex.y == -1.0) {
-            // just a c coordinate
+            // account for reverse miter
+            if (!isCap && cdcdmitlen > 0.0 &&
+                cdcdmitlen < reverseMiterLimit &&
+                abcdmitlen < reverseMiterLimit) {
+              c = cdrevmiter;
+              vUv.x -= vertex.x * cdcdmitlen;
+            }
             final = c;
           } else if (vertex.y == 1.0) {
             // interpolate a to b (cap or join)
-            if(b == vec2(0.0)){
+            if(isCap){
               if (vertex.x < 0.5) {
                 final = startCap(dir, a, vertex.z);
               } else {
                 final = endCap(dir, a, vertex.z);
               }
             } else {
+              // account for reverse miter
+              if (ababmitlen > 0.0 &&
+                  ababmitlen < reverseMiterLimit &&
+                  cdabmitlen < reverseMiterLimit) {
+                a = b = abrevmiter;
+                vUv.x -= vertex.x * cdabmitlen;
+              }
               final = join(a, b, vertex.z);
             }
           }
 
           gl_Position = p;
           gl_Position.xy += final * width * p.w / halfRes;
+
+          ${mainEndGLSL}
         }
       `,
       primitive,
