@@ -4,7 +4,7 @@
     "email": "deluksic@gmail.com",
     "name": "David Emanuel Luksic"
   },
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "source": true,
@@ -22,7 +22,7 @@
     "test:watch": "yarn test --watch",
     "type": "tsc"
   },
-  "peerDependencies": {
+  "dependencies": {
     "gl-matrix": "^3.3.0",
     "regl": "^1.4.2"
   },
@@ -40,11 +40,9 @@
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.8.2",
-    "gl-matrix": "^3.3.0",
     "jest": "^25.4.0",
     "jest-matcher-deep-close-to": "^1.3.0",
     "parcel": "nightly",
-    "regl": "^1.4.2",
     "typescript": "^3.8.3"
   },
   "files": [
