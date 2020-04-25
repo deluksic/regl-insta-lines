@@ -5,7 +5,15 @@ Based on [Regl](https://github.com/regl-project/regl).
 
 Loosely based on Rye Terrell's [Instanced Line Rendering](https://wwwtyro.net/2019/11/18/instanced-lines.html), highly recommended as introduction.
 
-Features:
+## Installation
+```bash
+# you also need regl and gl-matrix
+npm install --save regl-insta-lines
+# or
+yarn add regl-insta-lines
+```
+
+## Features:
 - batch rendering of lines
 - vertex shader expanded
 - start / end caps (`butt`, `square`, `round`, `arrow(size, angle)`)
