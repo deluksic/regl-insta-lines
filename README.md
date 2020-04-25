@@ -7,7 +7,6 @@ Loosely based on Rye Terrell's [Instanced Line Rendering](https://wwwtyro.net/20
 
 ## Installation
 ```bash
-# you also need regl and gl-matrix
 npm install --save regl-insta-lines
 # or
 yarn add regl-insta-lines
