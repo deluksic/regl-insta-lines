@@ -1,10 +1,10 @@
 {
-  "name": "regl-lines",
+  "name": "regl-insta-lines",
   "author": {
     "email": "deluksic@gmail.com",
     "name": "David Emanuel Luksic"
   },
-  "version": "0.1.0",
+  "version": "0.2.1",
   "main": "src/index.ts",
   "source": true,
   "license": "UNLICENSED",
