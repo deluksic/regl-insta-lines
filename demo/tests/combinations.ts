@@ -58,7 +58,7 @@ export function main(regl: Regl) {
   }));
   linecmds.forEach((cmd, i) => {
     cmd.setWidth(opts.width);
-    cmd.setLines(testLines(9, -(i + .5) / linecmds.length * 2 + 1))
+    cmd.setLines(testLines(9, -(i + .5) / linecmds.length * 2 + 1));
   });
   regl.frame(() => {
     linecmds.forEach(cmd => {

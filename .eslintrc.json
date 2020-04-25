@@ -3,14 +3,11 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "jest",
-    "react",
-    "react-hooks",
     "@typescript-eslint"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:jest/recommended",
-    "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
@@ -20,9 +17,6 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error",
-    "react/prop-types": "off",
     "quotes": [
       "error",
       "single",
@@ -30,10 +24,5 @@
         "allowTemplateLiterals": true
       }
     ]
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
   }
 }

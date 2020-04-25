@@ -4,36 +4,41 @@
     "email": "deluksic@gmail.com",
     "name": "David Emanuel Luksic"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "src/index.ts",
   "source": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "browserslist": [
     "last 1 chrome versions",
     "last 1 firefox versions"
   ],
   "scripts": {
     "dev": "parcel demo/index.html",
-    "test": "jest"
+    "lint": "eslint . --ext .jsx,.ts,.tsx",
+    "lint:fix": "yarn lint --fix",
+    "test": "jest",
+    "test:watch": "yarn test --watch",
+    "type": "tsc"
   },
   "dependencies": {
-    "regl": "^1.4.2",
-    "gl-matrix": "^3.3.0"
+    "gl-matrix": "^3.3.0",
+    "regl": "^1.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
-    "@types/node": "^13.9.8",
-    "@typescript-eslint/eslint-plugin": "^2.24.0",
-    "@typescript-eslint/parser": "^2.24.0",
     "@types/dat.gui": "^0.7.5",
-    "babel-jest": "^25.2.4",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.2",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "babel-jest": "^25.4.0",
     "dat.gui": "^0.7.7",
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.8.2",
-    "jest": "^25.2.4",
+    "jest": "^25.4.0",
     "jest-matcher-deep-close-to": "^1.3.0",
     "parcel": "nightly",
     "typescript": "^3.8.3"
