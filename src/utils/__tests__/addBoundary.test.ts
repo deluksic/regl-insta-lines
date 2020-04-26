@@ -4,8 +4,8 @@ describe('Test addBoundaries', () => {
   it('returns empty array for empty array input', () => {
     expect(addBoundaries([])).toHaveLength(0);
     expect(addBoundaries([], true)).toHaveLength(0);
-    expect(addBoundaries([], false, 0)).toHaveLength(0);
-    expect(addBoundaries([], true, 0)).toHaveLength(0);
+    expect(addBoundaries([], false, undefined)).toHaveLength(0);
+    expect(addBoundaries([], true, undefined)).toHaveLength(0);
   });
 
   it('returns correct boundaries for one element', () => {

@@ -3,8 +3,8 @@
  * https://www.geogebra.org/geometry/uw5kurzg
  *
  * Vertices are described using 3 numbers:
- * [P1 | P2, a | P | c, a..b]
- * [-1 | 1, 1 | 0 | -1, 0..1]
+ * [P1 | P2, c | P | a, a..b]
+ * [-1 | 1, -1 | 0 | 1, 0..1]
  * 
  * @param joinCount
  */

@@ -1,7 +1,6 @@
 import { Regl } from 'regl';
-import { JoinType, CapType, createLines3D } from '../../src';
+import { JoinType, CapType, createLines } from '../../src';
 import { glsl } from '../../src/glsl';
-import { vec3 } from 'gl-matrix';
 import { GUI } from 'dat.gui';
 
 function maybeString(s: string | (() => string)): string {
@@ -18,10 +17,10 @@ const capjoin = Object.keys(CapType).flatMap(
   })));
 
 const testLine = (angle: number, scale: number, shift: [number, number]) => [
-  [shift[0] + scale * -Math.sin(angle / 2), shift[1] + scale * Math.cos(angle / 2) / 2, 0],
-  [shift[0], shift[1] - scale * Math.cos(angle / 2) / 4, 0],
-  [shift[0] + scale * Math.sin(angle / 2), shift[1] + scale * Math.cos(angle / 2) / 2, 0]
-] as vec3[];
+  [shift[0] + scale * -Math.sin(angle / 2), shift[1] + scale * Math.cos(angle / 2) / 2],
+  [shift[0], shift[1] - scale * Math.cos(angle / 2) / 4],
+  [shift[0] + scale * Math.sin(angle / 2), shift[1] + scale * Math.cos(angle / 2) / 2]
+] as [number, number][];
 
 const testLines = (count: number, shifty: number) => [...new Array(count).keys()]
   .map(i => ({
@@ -34,7 +33,8 @@ export function main(regl: Regl) {
   };
   const gui = new GUI();
   gui.add(opts, 'width', 0, 30, 0.0001);
-  const linecmds = capjoin.map(({ cap, join }) => createLines3D(regl, {
+  const linecmds = capjoin.map(({ cap, join }) => createLines(regl, {
+    dimension: 2,
     cap,
     join,
     // primitive: 'line strip',

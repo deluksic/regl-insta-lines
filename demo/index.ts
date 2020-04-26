@@ -4,12 +4,12 @@ import { main as inter } from './tests/interaction';
 import { main as comb } from './tests/combinations';
 
 import { createLines } from './webglLines';
-import { createLines3D } from '../src/lines3D';
+import { createLines as createLines3D } from '../src/lines';
 
 const regl = createRegl({
   extensions: ['ANGLE_instanced_arrays']
 });
-// main(regl, createLines);
-// main(regl, createLines3D);
+// stress(regl, createLines);
+// stress(regl, createLines);
 inter(regl);
 // comb(regl);

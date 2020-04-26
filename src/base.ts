@@ -11,62 +11,81 @@ export const defaultCameraTransform = glsl`
   }
 `;
 
-export const defaultFrag = glsl`
-  void main() {
-    gl_FragColor = vec4(1.0);
-  }
-`;
-
-export type CreateLineOptions = {
+export type CreateLineBaseOptions = {
   /**
    * Width in pixels.
+   * @default 1
    */
   width?: number;
   /**
    * GLSL code for calculating the caps.
    * ```glsl
    * vec2 cap(vec2 a, vec2 b, float percent);
+   * ```
+   * @default CapType.butt
    */
   cap?: GLSL | { start: GLSL; end: GLSL };
   /**
-   * GLSL code of declarations, at least:
+   * GLSL code for calculating the join.
+   * One of JoinType.* values or your own.
    * ```glsl
-   * vec4 cameraTransform(vec4 pos);
+   * vec2 join(vec2 a, vec2 b, float percent);
    * ```
+   * @default JoinType.bevel
    */
-  declarationsGLSL?: GLSL;
+  join?: GLSL;
   /**
-   * Fragment shader code.
+   * Number of triangles approximating the joins.
+   * NOTE: joins are effectively bevel joins when this value is set to 1.
+   * @default 4
+   */
+  joinCount?: number;
+  /**
+   * How far up the segment can a reverse miter go. Default is 0.5.
+   * Anything larger than 0.5 has a probability of failure, but allows
+   * sharper angles to still be reverse-mitered. Conversely, smaller
+   * value means that corner segments will fold earlier.
+   * @default 0.5
+   */
+  reverseMiterLimit?: number;
+  /**
+   * Optional Fragment shader code.
+   * You can also wrap the render call inside another cmd that
+   * supplies the fragment shader + uniforms needed.
+   * Following varyings are available in the base API:
    * ```glsl
+   * varying vec3 vPos;
    * varying vec2 vUv;
    * ```
    */
   frag?: GLSL;
   /**
-   * GLSL code for calculating the join.
+   * Optional blending mode. Alpha blending enabled by default.
+   */
+  blend?: REGL.DrawConfig['blend'];
+  /**
+   * Optional GLSL code of declarations, that at least defines a camera
+   * transform:
    * ```glsl
-   * vec2 join(vec2 a, vec2 b, float percent);
+   * vec4 cameraTransform(vec4 pos);
    * ```
+   * @default identity
    */
-  join?: GLSL;
+  declarationsGLSL?: GLSL;
   /**
-   * Number of triangles approximating the joins.
-   * NOTE: some joins (like miter or round) become bevel
-   * joins when set to 1.
-   */
-  joinCount?: number;
-  /**
-   * GLSL code of main() function body. After this call, these
+   * Required GLSL code of main() function body. After this code, these
    * should be defined at least:
    * ```glsl
    *  vec3 p0, p1, p2, p3;
+   *  float skip;
    * ```
-   * NOTE: these could also be defined in declarations as attributes.
+   * NOTE: If you set skip to something else than 0.0, the segment will
+   * be discarded.
    */
   defineVerticesGLSL?: GLSL;
   /**
-   * Optional GLSL code of main() function body. Called after clip positions
-   * become available:
+   * Optional GLSL code of main() function body. Called after clip and screen
+   * coordinates become available:
    * ```glsl
    * // clip space coords
    * vec4 clip0, ..., clip3;
@@ -82,12 +101,6 @@ export type CreateLineOptions = {
    */
   mainEndGLSL?: GLSL;
   /**
-   * How far up the segment can a reverse miter go. Default is .5.
-   * Anything larger than .5 has a probability of failure, but allows
-   * sharper angles to still be reverse-mitered.
-   */
-  reverseMiterLimit?: number;
-  /**
    * For setting to lines for debugging
    */
   primitive?: REGL.DrawConfig['primitive'];
@@ -99,28 +112,24 @@ export type CreateLineOptions = {
 export function createLineBase(
   regl: Regl,
   {
-    width = 1,
+    blend,
     cap = CapType.butt,
     declarationsGLSL = defaultCameraTransform,
-    frag = defaultFrag,
+    defineVerticesGLSL,
+    frag,
     join = JoinType.bevel,
     joinCount = 4,
-    defineVerticesGLSL,
-    postprocessVerticesGLSL,
     mainEndGLSL,
+    postprocessVerticesGLSL,
+    primitive = 'triangles',
     reverseMiterLimit = 0.5,
-    primitive = 'triangles'
-  }: CreateLineOptions
+    width = 1,
+  }: CreateLineBaseOptions
 ) {
   const mesh = lineSegmentMesh(joinCount);
   const vertices = regl.buffer(mesh.vertices);
-  let startCap, endCap;
-  if (typeof cap === 'string') {
-    startCap = endCap = cap;
-  } else {
-    startCap = cap.start;
-    endCap = cap.end;
-  }
+  const [startCap, endCap] = typeof cap === 'string' ?
+    [cap, cap] : [cap.start, cap.end];
   return {
     setWidth: (newWidth: number) => width = newWidth,
     render: regl({
@@ -131,6 +140,7 @@ export function createLineBase(
         uniform vec2 resolution;
         attribute vec3 vertex;
 
+        varying vec3 vPos;
         varying vec2 vUv;
 
         // assumes a and b are normalized
@@ -267,6 +277,11 @@ export function createLineBase(
           gl_Position = p;
           gl_Position.xy += final * width * p.w / halfRes;
 
+          // use vUv.x to mix positions since vUv.x will have
+          // corrected distance along the segment due to
+          // reverse miter
+          vPos = mix(p1, p2, vUv.x);
+
           ${mainEndGLSL}
         }
       `,
@@ -286,7 +301,7 @@ export function createLineBase(
         enable: true,
         face: 'back'
       },
-      blend: {
+      blend: blend ?? {
         enable: true,
         func: {
           src: 'src alpha',

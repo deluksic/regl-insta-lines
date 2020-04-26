@@ -1,6 +1,6 @@
 import REGL, { Regl } from 'regl';
 import { glsl, GLSL } from '../src/glsl';
-import { Line3DDescriptor } from '../src';
+import { LineDescriptor } from '../src';
 
 const defaultCameraTransform = glsl`
   vec4 cameraTransform(vec4 pos) {
@@ -42,7 +42,7 @@ export function createLines(regl: Regl, {
   function setWidth() {
     // noop
   }
-  function setLines(lines: Line3DDescriptor[]) {
+  function setLines(lines: LineDescriptor<3>[]) {
     const positions = lines.flatMap(l => l.points);
     points(positions);
     count = positions.length;

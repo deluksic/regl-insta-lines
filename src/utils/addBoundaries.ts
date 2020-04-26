@@ -1,3 +1,4 @@
+type ArrayElement<T> = T extends (infer E)[] ? E : never;
 /**
  * When drawing a line, each segment is specified using 4 points: p0, p1, p2, p3.
  * A line segment is drawn only through p1 --- p2, but p0 and p3 are important for
@@ -16,7 +17,7 @@
  * @param closed
  * @param fill
  */
-export function addBoundaries<T>(points: T[], closed?: boolean, fill?: T) {
+export function addBoundaries<T>(points: T, closed?: boolean, fill?: ArrayElement<T>): ArrayElement<T>[] {
   if (!Array.isArray(points) || points.length === 0) {
     return [];
   }

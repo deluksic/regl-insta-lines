@@ -5,7 +5,7 @@
     "email": "deluksic@gmail.com",
     "name": "David Emanuel Luksic"
   },
-  "version": "0.2.8",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "browser": "dist/browser.js",
   "types": "dist/index.d.ts",
@@ -32,7 +32,6 @@
     "type": "tsc"
   },
   "dependencies": {
-    "gl-matrix": "^3.3.0",
     "regl": "^1.4.2"
   },
   "devDependencies": {
