@@ -19,6 +19,7 @@ yarn add regl-insta-lines
 - vertex shader expanded
 - start / end caps (`butt`, `square`, `round`, `arrow(size, angle)`)
 - joins (`bevel`, `miter(limit)`, `miterSquare`, `round`)
+- closed loop support
 - GLSL injectable to tailor to your needs (e.g. do you have a non-linear camera?)
 - full type support
 
