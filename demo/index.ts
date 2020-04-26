@@ -11,5 +11,5 @@ const regl = createRegl({
 });
 // stress(regl, createLines);
 // stress(regl, createLines);
-inter(regl);
-// comb(regl);
+// inter(regl);
+comb(regl);

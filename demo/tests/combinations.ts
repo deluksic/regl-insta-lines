@@ -41,14 +41,14 @@ export function main(regl: Regl) {
     joinCount: 8,
     frag: glsl`
       precision highp float;
-      varying vec2 distanceAlongPath;
+      varying vec3 distanceAlongPath;
       varying vec2 vUv;
       void main() {
         if(gl_FrontFacing) {
-          float dash = floor(0.5 + mod(distanceAlongPath.x, 0.03) / 0.03);
+          float dash = floor(0.5 + mod(distanceAlongPath.y, 0.03) / 0.03);
           vec3 color = dash > 0.5 ? vec3(.4, .2, .1) : vec3(.6, .2, .1);
           gl_FragColor = vec4(color, 1.0);
-          // gl_FragColor = vec4(0.0, distanceAlongPath.y, 0.0, 1.0);
+          // gl_FragColor = vec4(0.0, distanceAlongPath.z, 0.0, 1.0);
           // gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
         } else {
           gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
