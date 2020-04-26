@@ -5,9 +5,17 @@
     "email": "deluksic@gmail.com",
     "name": "David Emanuel Luksic"
   },
-  "version": "0.2.4",
+  "version": "0.2.8",
   "main": "dist/index.js",
+  "browser": "dist/browser.js",
   "types": "dist/index.d.ts",
+  "targets": {
+    "browser": {
+      "includeNodeModules": true,
+      "context": "browser",
+      "outputFormat": "esmodule"
+    }
+  },
   "source": true,
   "license": "MIT",
   "browserslist": [

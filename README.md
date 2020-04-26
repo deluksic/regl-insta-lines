@@ -5,6 +5,8 @@ Based on [Regl](https://github.com/regl-project/regl).
 
 Loosely based on Rye Terrell's [Instanced Line Rendering](https://wwwtyro.net/2019/11/18/instanced-lines.html), highly recommended as introduction.
 
+[Live demo](https://observablehq.com/@deluksic/regl-insta-lines-example)
+
 ## Installation
 ```bash
 npm install --save regl-insta-lines
