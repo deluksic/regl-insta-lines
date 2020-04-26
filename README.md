@@ -83,7 +83,7 @@ regl.frame(()=>{
 | width | `number` | `1.0` | Width of lines in pixels. Can also be set using `.setWidth(width)` function after creation. |
 | cap | `string` (GLSL) or `{ start: GLSL; end: GLSL; }` | `CapType.butt` | Any of `CapType`s or your own custom GLSL function. Supported: `butt`, `square`, `round` |
 | join | `string` (GLSL) | `JoinType.bevel` | Any of `JoinType`s or your own custom GLSL function. Supported: `bevel`, `miter`, `round`, `miterSquare` |
-| joinCount | `int` | `3` | Number of triangles approximating the joins. NOTE: joins (like miter or round) effectively become bevel joins when set to 1. |
+| joinCount | `int` | `4` | Number of triangles approximating the joins. NOTE: joins (like miter or round) effectively become bevel joins when set to 1. |
 | distanceFn | `(a: vec3, b: vec3) => number` | `vec3.distance` | Function that calculates distance between two points. Used to determine `distanceAlongPath` varying for fragment shader (useful for dashes for example) |
 | frag | `string` (GLSL) | fill white | Optional fragment shader, gets the following varyings: `vec3 vPos; vec2 vUv; vec3 distanceAlongPath;`. NOTE: Even though it's optional here, if you don't specify it, you must wrap the render call inside a regl command that does provide it, otherwise regl will scream at you. |
 | reverseMiterLimit | `number` | `0.5` | How far up the segment can a reverse miter go. Anything more than `0.5` runs a risk of failure, but allows sharper angles to still be reverse mitered. |
