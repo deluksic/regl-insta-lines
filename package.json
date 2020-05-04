@@ -5,7 +5,7 @@
     "email": "deluksic@gmail.com",
     "name": "David Emanuel Luksic"
   },
-  "version": "0.3.1",
+  "version": "0.4.1",
   "main": "dist/index.js",
   "module": "dist/module.js",
   "types": "dist/index.d.ts",

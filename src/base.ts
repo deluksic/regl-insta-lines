@@ -1,4 +1,4 @@
-import REGL, { Regl } from 'regl';
+import { Regl, DrawConfig } from 'regl';
 import { glsl, GLSL } from './glsl';
 import { lineSegmentMesh } from './utils/lineSegmentMesh';
 import { JoinType } from './joins';
@@ -62,7 +62,7 @@ export type CreateLineBaseOptions = {
   /**
    * Optional blending mode. Alpha blending enabled by default.
    */
-  blend?: REGL.DrawConfig['blend'];
+  blend?: DrawConfig['blend'];
   /**
    * Optional GLSL code of declarations, that at least defines a camera
    * transform:
@@ -103,7 +103,7 @@ export type CreateLineBaseOptions = {
   /**
    * For setting to lines for debugging
    */
-  primitive?: REGL.DrawConfig['primitive'];
+  primitive?: DrawConfig['primitive'];
 }
 
 /**
@@ -136,7 +136,7 @@ export function createLineBase(
       frag,
       vert: glsl`
         precision highp float;
-        uniform float width;
+        uniform float radius;
         uniform vec2 resolution;
         attribute vec3 vertex;
 
@@ -238,10 +238,10 @@ export function createLineBase(
           vec2 cdrevmiter = miterPoint(c, d);
           float sablen2 = dot(sab, sab);
           float scdlen2 = dot(scd, scd);
-          float ababmitlen = dot(sab, abrevmiter) * width / sablen2;
-          float abcdmitlen = dot(sab, cdrevmiter) * width / sablen2;
-          float cdabmitlen = dot(scd, abrevmiter) * width / scdlen2;
-          float cdcdmitlen = dot(scd, cdrevmiter) * width / scdlen2;
+          float ababmitlen = dot(sab, abrevmiter) * radius / sablen2;
+          float abcdmitlen = dot(sab, cdrevmiter) * radius / sablen2;
+          float cdabmitlen = dot(scd, abrevmiter) * radius / scdlen2;
+          float cdcdmitlen = dot(scd, cdrevmiter) * radius / scdlen2;
 
           vec2 final = vec2(0.0);
           vec2 dir = vertex.x * normalize(p1p2);
@@ -275,7 +275,7 @@ export function createLineBase(
           }
 
           gl_Position = p;
-          gl_Position.xy += final * width * p.w / halfRes;
+          gl_Position.xy += final * radius * p.w / halfRes;
 
           // use vUv.x to mix positions since vUv.x will have
           // corrected distance along the segment due to
@@ -294,7 +294,7 @@ export function createLineBase(
         }
       },
       uniforms: {
-        width: () => width,
+        radius: () => 0.5 * width,
         resolution: ctx => [ctx.viewportWidth, ctx.viewportHeight]
       },
       cull: {
