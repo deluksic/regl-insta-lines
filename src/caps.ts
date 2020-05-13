@@ -1,5 +1,4 @@
 import { glsl } from './glsl';
-import { PI } from './glslUtils';
 
 export const CapType = {
   butt: glsl`

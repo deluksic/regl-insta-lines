@@ -5,7 +5,7 @@
     "email": "deluksic@gmail.com",
     "name": "David Emanuel Luksic"
   },
-  "version": "0.4.1",
+  "version": "0.4.2",
   "main": "dist/index.js",
   "module": "dist/module.js",
   "types": "dist/index.d.ts",
@@ -25,7 +25,7 @@
     "type": "tsc"
   },
   "dependencies": {
-    "regl": "^1.4.2"
+    "regl": "^1.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
