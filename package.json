@@ -3,9 +3,9 @@
   "homepage": "https://github.com/deluksic/regl-insta-lines",
   "author": {
     "email": "deluksic@gmail.com",
-    "name": "David Emanuel Luksic"
+    "name": "Unknown"
   },
-  "version": "0.4.2",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/module.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "parcel build src/index.ts",
-    "dev": "parcel demo/index.html",
+    "start": "parcel demo/index.html",
     "lint": "eslint . --ext .jsx,.ts,.tsx",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
@@ -28,23 +28,23 @@
     "regl": "^1.5.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "@babel/preset-typescript": "^7.9.0",
-    "@types/dat.gui": "^0.7.5",
-    "@types/jest": "^25.2.1",
-    "@types/node": "^13.13.2",
-    "@typescript-eslint/eslint-plugin": "^2.29.0",
-    "@typescript-eslint/parser": "^2.29.0",
-    "babel-jest": "^25.4.0",
-    "dat.gui": "^0.7.7",
-    "eslint": "^6.8.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.8.2",
-    "jest": "^25.4.0",
-    "jest-matcher-deep-close-to": "^1.3.0",
-    "parcel": "nightly",
-    "typescript": "^3.8.3"
+    "@babel/core": "7.12.3",
+    "@babel/preset-env": "7.12.1",
+    "@babel/preset-typescript": "7.12.1",
+    "@types/dat.gui": "0.7.5",
+    "@types/jest": "26.0.15",
+    "@types/node": "14.14.6",
+    "@typescript-eslint/eslint-plugin": "4.6.1",
+    "@typescript-eslint/parser": "4.6.1",
+    "babel-jest": "26.6.3",
+    "dat.gui": "0.7.7",
+    "eslint": "7.12.1",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jest": "24.1.0",
+    "jest": "26.6.3",
+    "jest-matcher-deep-close-to": "1.3.0",
+    "parcel": "v2.0.0-beta.1",
+    "typescript": "4.0.5"
   },
   "files": [
     "dist"
