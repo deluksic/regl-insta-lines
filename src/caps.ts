@@ -18,7 +18,7 @@ export const CapType = {
       return slerp(norm, dir, percent * 2.0, -1.0);
     // }
   `,
-  arrow: (size = 2.5, angle = 60) => glsl`
+  arrow: (size = 2.5, angle = 60): string => glsl`
     // vec2 cap(vec2 dir, vec2 norm, float percent) {
       float size = ${size.toFixed(4)};
       float angle = radians(${angle.toFixed(4)});

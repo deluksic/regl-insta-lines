@@ -1,4 +1,4 @@
-import { Regl, DrawConfig } from 'regl';
+import { Regl, DrawConfig, DrawCommand, DefaultContext } from 'regl';
 import { glsl, GLSL } from './glsl';
 import { lineSegmentMesh } from './utils/lineSegmentMesh';
 import { JoinType } from './joins';
@@ -125,7 +125,10 @@ export function createLineBase(
     reverseMiterLimit = 0.5,
     width = 1,
   }: CreateLineBaseOptions
-) {
+): {
+  setWidth: (newWidth: number) => number;
+  render: DrawCommand<DefaultContext, Record<string, unknown>>;
+} {
   const mesh = lineSegmentMesh(joinCount);
   const vertices = regl.buffer(mesh.vertices);
   const [startCap, endCap] = typeof cap === 'string' ?

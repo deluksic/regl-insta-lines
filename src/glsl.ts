@@ -6,5 +6,5 @@ export type GLSL = string;
  * @param strings
  * @param values
  */
-export const glsl = (s: TemplateStringsArray, ...v: unknown[]) =>
+export const glsl = (s: TemplateStringsArray, ...v: unknown[]): string =>
   s.flatMap((s, i) => [s, v[i] === undefined ? '' : v[i]]).join('') as GLSL;

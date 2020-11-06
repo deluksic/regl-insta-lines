@@ -1,3 +1,8 @@
+type LineSegmentMesh = {
+  vertices: [number, number, number][];
+  indices: [number, number, number][]
+}
+
 /**
  * Create a line segment mesh as described here:
  * https://www.geogebra.org/geometry/uw5kurzg
@@ -8,7 +13,7 @@
  * 
  * @param joinCount
  */
-export function lineSegmentMesh(joinCount: number) {
+export function lineSegmentMesh(joinCount: number): LineSegmentMesh {
   if (joinCount < 1) {
     throw new Error(`Line segment mesh got invalid value for 'joinCount': ${joinCount}.`);
   }

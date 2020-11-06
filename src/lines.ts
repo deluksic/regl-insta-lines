@@ -71,7 +71,11 @@ export function createLines<PDim extends PositionDimension = 3>(
     mainEndGLSL,
     ...linesBaseOptions
   }: CreateLinesOptions<PDim>
-) {
+): {
+  setLines: (lines: LineDescriptor<PDim>[]) => void;
+  setWidth: (newWidth: number) => number;
+  render: () => void;
+} {
   let count = 0;
   const points = regl.buffer({ type: 'float32' });
   const distanceAlongPath = regl.buffer({ type: 'float32' });

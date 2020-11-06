@@ -17,7 +17,11 @@ type ArrayElement<T> = T extends (infer E)[] ? E : never;
  * @param closed
  * @param fill
  */
-export function addBoundaries<T>(points: T, closed?: boolean, fill?: ArrayElement<T>): ArrayElement<T>[] {
+export function addBoundaries<T>(
+  points: T,
+  closed?: boolean,
+  fill?: ArrayElement<T>
+): ArrayElement<T>[] {
   if (!Array.isArray(points) || points.length === 0) {
     return [];
   }

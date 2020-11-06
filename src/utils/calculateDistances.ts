@@ -5,16 +5,20 @@
  * calculateDistances([1, -2, 3], (a, b) => Math.abs(b - a))  // [[0., 0, 0.], [0.333, 3, 0.375], [0.666, 8, 1.]]
  * ```
  * @param array
- * @param fn
+ * @param distanceFn
  * @param closed If closed, its as if the first point was added to the end
  */
-export function calculateDistances<T>(array: T[], fn: (prev: T, curr: T) => number, closed?: boolean): [number, number, number][] {
+export function calculateDistances<T>(
+  array: T[],
+  distanceFn: (prev: T, curr: T) => number,
+  closed?: boolean
+): [number, number, number][] {
   let sum = 0;
   const len = array.length + (closed ? 1 : 0);
   const acc = [...new Array(len).keys()].map(
     i => {
       if (i === 0) return [0, 0, 0] as [number, number, number];
-      sum += fn(array[i - 1], array[i % array.length]);
+      sum += distanceFn(array[i - 1], array[i % array.length]);
       return [i / array.length, sum, 0] as [number, number, number];
     }
   );

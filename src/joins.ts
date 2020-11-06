@@ -11,7 +11,7 @@ export const JoinType = {
       return slerp(a, b, percent, -1.0);
     }
   `,
-  miter: (limit = 3) => glsl`
+  miter: (limit = 3): string => glsl`
     vec2 join(vec2 a, vec2 b, float percent) {
       if (percent == 0.0) return a;
       if (percent == 1.0) return b;
