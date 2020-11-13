@@ -11,7 +11,7 @@
   "source": true,
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "([ -d dist ] && rm -r dist || echo) && tsc",
     "start": "parcel demo/index.html",
     "lint": "eslint . --ext .jsx,.ts,.tsx",
     "lint:fix": "yarn lint --fix",
