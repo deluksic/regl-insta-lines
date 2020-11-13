@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
     "lib": [
@@ -7,11 +8,13 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "noEmit": true,
+    "outDir": "dist",
     "strict": true
   },
   "include": [
-    "src",
-    "demo"
+    "src/index.ts"
+  ],
+  "exclude": [
+    "**/__tests__"
   ]
 }
