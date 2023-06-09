@@ -1,6 +1,9 @@
 {
   "name": "regl-insta-lines",
   "homepage": "https://github.com/deluksic/regl-insta-lines",
+  "repository": {
+    "url": "https://github.com/deluksic/regl-insta-lines"
+  },
   "author": {
     "email": "deluksic@gmail.com",
     "name": "Unknown"
